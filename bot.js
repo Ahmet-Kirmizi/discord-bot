@@ -1,30 +1,15 @@
-const Discord = require('discord.js');
-const client = new Discord.Client({
-    intents: [
-      'GUILDS',           // Required to listen for server events
-      'GUILD_MESSAGES'    // Required to listen for message events
-    ]
-  });
-const prefix = '!';
-const token = 'MTA3ODMxNDY0MDQzOTc3MTEzNg.GM35-r.STbxrH0H_Nm66PbAf146iM4uEdHszm6DHDdavU';
+const {Client, Intents} = require("discord.js");
+const client = new Client({ intents: ["GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES", "MESSAGE_CONTENT"], partials: ["CHANNEL"] });
 
-client.on('ready', () => {
-  console.log('Bot is ready!');
+client.on("ready", () =>{
+    console.log("The AI bot is online"); //message when bot is online
+});
+client.on("messageCreate", (messageCreate) => {
+    if (messageCreate.content.substring(0, 1) === "!") {
+        messageCreate.channel.send("Hello from AI bot"); //reply if message has "!" as first character
+    }
 });
 
-client.on('messageCreate', messageCreate => {
-  if (!messageCreate.content.startsWith(prefix) || messageCreate.author.bot) return;
-
-  const args = messageCreate.content.slice(prefix.length).trim().split(' ');
-  console.log(args);
-  const command = args.shift().toLowerCase();
-
-  if (command === 'hello') {
-    messageCreate.channel.send(`Hello, ${messageCreate.author}!`);
-  } else if (command === 'roll') {
-    const number = Math.floor(Math.random() * 6) + 1;
-    messageCreate.channel.send(`${message.author} rolled a ${number}!`);
-  }
-});
+const { token } = require('./config.json');
 
 client.login(token);

@@ -4,7 +4,6 @@
     "description": "A simple Discord bot that responds to commands",
     "main": "index.js",
     "dependencies": {
-      "discord.js": "^13.3.1"
+        "discord.js": "^13.13.1"
     }
-  }
-  
+}
